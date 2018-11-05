@@ -31,13 +31,15 @@ python.) You can also run it from a command line, with extra arguments.
 - `--regex` is a [regular expression][regex] to use to specify which files to
   use. The default is `\.pdf\Z`. These are in Python's regex syntax.
 
+[regex]: https://www.digitalocean.com/community/tutorials/an-introduction-to-regular-expressions
+
 ## Tests
 
 I don't want to distribute example PDFs for testing, so you'll need to just run
 it yourself and test.
 
 You can get some good test files from
-[uwaterloo](https://uwaterloo.ca/onbase/help/sample-pdf-documents)
+[uwaterloo](https://uwaterloo.ca/onbase/help/sample-pdf-documents).
 
 ## License
 
