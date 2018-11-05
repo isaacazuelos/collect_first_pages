@@ -3,21 +3,16 @@ Recursively walks down a directory, finding all PDFs, and collects their first
 pages.
 """
 
+import argparse
 import os
-import re
 import PyPDF2
+import re
 
-LOGFILE_PATH = "error-log.txt"
 PDF_REGEX = r"pdf\Z"
 OUTFILE = "out.pdf"
 
-def log(s):
-    """ Add a string to the bottom of LOGFILE_PATH """
-    with open(LOGFILE_PATH, 'a') as logfile:
-        logfile.write(s + "\n")
-
 class Collector():
-    def __init__(self, dir=os.curdir, out="out.pdf", match=PDF_REGEX):
+    def __init__(self, dir, out, match):
         self.pagecount = 0
         self.dir = dir
         self.regex = re.compile(match, re.IGNORECASE)
@@ -44,12 +39,22 @@ class Collector():
             self.writer.write(outfile)
 
 def main():
-    try:
-        collector = Collector()
-        collector.collect()
-        collector.write()
-    except Exception as e:
-        log("error: {}".format(e))
+    args = parse_args()
+    print(args)
+
+    collector = Collector(args.dir, args.out, args.regex)
+    collector.collect()
+    collector.write()
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('dir', type=str, nargs='?', default=os.curdir)
+    parser.add_argument('-o', '--out', type=str, default=OUTFILE)
+    parser.add_argument('-r', '--regex', type=str, default=PDF_REGEX)
+    
+    args = parser.parse_args()
+    return args
 
 if __name__ == "__main__":
     main()
