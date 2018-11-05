@@ -1,6 +1,11 @@
 # Collect First Pages
 
-Collect the first page of all PDFs in a directory into a new PDf.
+Collect the first page of all PDFs in a directory into a new PDF.
+
+This isn't particularity general, but it's useful at work.
+For a more general tool, see [`pdfcat`][1]
+
+[1]: https://pythonhosted.org/PyPDF2/Easy%20Concatenation%20Script.html
 
 ## Requirements and Installation
 
@@ -17,6 +22,12 @@ Clone the repository and use the `collect_first_pages.py` script as-is.
 
 Drag the file to the directory and double click it (if it's set to open with
 python.) You can also run it from a command line.
+
+## Tests
+
+I don't want to distribute example PDFs for testing, so you'll need to just run it yourself and test.
+
+You can get some good test files from [uwaterloo](https://uwaterloo.ca/onbase/help/sample-pdf-documents)
 
 ## License
 

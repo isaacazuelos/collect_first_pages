@@ -1,11 +1,6 @@
 """ 
 Recursively walks down a directory, finding all PDFs, and collects their first
 pages.
-
-This isn't particularity general, but it's useful at work.
-For a more general tool, see pdfcat[1]
-
-[1]: https://pythonhosted.org/PyPDF2/Easy%20Concatenation%20Script.html
 """
 
 import os
@@ -13,8 +8,10 @@ import PyPDF2
 
 LOGFILE_PATH = "error-log.txt"
 PDF_EXTENSION = ".pdf"
+OUTFILE = "out.pdf"
 
 def log(s):
+    """ Add a string to the bottom of LOGFILE_PATH"""
     with open(LOGFILE_PATH, 'a') as logfile:
         logfile.write(s + "\n")
 
@@ -33,11 +30,12 @@ def first_pages_of_pdfs_recursively(dir=os.curdir):
     for dir, _, files in os.walk(dir):
         for file in files:
             if has_pdf_ext(file):
-                append_first_page(pdf, file)
+                path = os.path.join(dir, file)
+                append_first_page(pdf, path)
     return pdf
 
 def write_pdf(pdf):
-    with open("example.pdf", "wb") as outfile:
+    with open(OUTFILE, "wb") as outfile:
         pdf.write(outfile)
 
 def main():
