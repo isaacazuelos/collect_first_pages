@@ -21,13 +21,23 @@ Clone the repository and use the `collect_first_pages.py` script as-is.
 ## Usage
 
 Drag the file to the directory and double click it (if it's set to open with
-python.) You can also run it from a command line.
+python.) You can also run it from a command line, with extra arguments.
+
+> `usage: collect_first_pages.py [-h] [-o OUT] [-r REGEX] [dir]`
+
+- `--help` prints a help message.
+- `dir` is the directory to traverse looking for pdfs.
+- `--out` is the file path to write to.
+- `--regex` is a [regular expression][regex] to use to specify which files to
+  use. The default is `\.pdf\Z`. These are in Python's regex syntax.
 
 ## Tests
 
-I don't want to distribute example PDFs for testing, so you'll need to just run it yourself and test.
+I don't want to distribute example PDFs for testing, so you'll need to just run
+it yourself and test.
 
-You can get some good test files from [uwaterloo](https://uwaterloo.ca/onbase/help/sample-pdf-documents)
+You can get some good test files from
+[uwaterloo](https://uwaterloo.ca/onbase/help/sample-pdf-documents)
 
 ## License
 
