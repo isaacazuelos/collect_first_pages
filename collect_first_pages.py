@@ -4,44 +4,50 @@ pages.
 """
 
 import os
+import re
 import PyPDF2
 
 LOGFILE_PATH = "error-log.txt"
-PDF_EXTENSION = ".pdf"
+PDF_REGEX = r"pdf\Z"
 OUTFILE = "out.pdf"
 
 def log(s):
-    """ Add a string to the bottom of LOGFILE_PATH"""
+    """ Add a string to the bottom of LOGFILE_PATH """
     with open(LOGFILE_PATH, 'a') as logfile:
         logfile.write(s + "\n")
 
-def append_first_page(writer, path):
-    print("appending:", path)
-    pdf = PyPDF2.PdfFileReader(path)
-    firstpage = pdf.getPage(0)
-    writer.addPage(firstpage)
+class Collector():
+    def __init__(self, dir=os.curdir, out="out.pdf", match=PDF_REGEX):
+        self.pagecount = 0
+        self.dir = dir
+        self.regex = re.compile(match, re.IGNORECASE)
+        self.outfile = out
+        self.writer = PyPDF2.PdfFileWriter()
 
-def has_pdf_ext(path):
-    _, ext = os.path.splitext(path)
-    return ext.lower() == PDF_EXTENSION
+    def append_first_page(self, path):
+        pdf = PyPDF2.PdfFileReader(path)
+        firstpage = pdf.getPage(0)
+        self.writer.addPage(firstpage)
+        self.pagecount += 1
 
-def first_pages_of_pdfs_recursively(dir=os.curdir):
-    pdf = PyPDF2.PdfFileWriter()
-    for dir, _, files in os.walk(dir):
-        for file in files:
-            if has_pdf_ext(file):
-                path = os.path.join(dir, file)
-                append_first_page(pdf, path)
-    return pdf
+    def collect(self):
+        for dir, _, files in os.walk(self.dir):
+            for file in files:
+                if self.regex.search(file):
+                    path = os.path.join(dir, file)
+                    self.append_first_page(path)
 
-def write_pdf(pdf):
-    with open(OUTFILE, "wb") as outfile:
-        pdf.write(outfile)
+    def write(self):
+        if self.pagecount == 0:
+            return
+        with open(self.outfile, "wb") as outfile:
+            self.writer.write(outfile)
 
 def main():
     try:
-        pdf = first_pages_of_pdfs_recursively()
-        write_pdf(pdf)
+        collector = Collector()
+        collector.collect()
+        collector.write()
     except Exception as e:
         log("error: {}".format(e))
 
