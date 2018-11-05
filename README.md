@@ -1,4 +1,4 @@
-# First Pages
+# Collect First Pages
 
 Collect the first page of all PDFs in a directory into a new PDf.
 
@@ -11,7 +11,7 @@ You'll need [Python 3][python], with the [`PyPDF2`][py2pdf] module installed.
 
 You can install `PyPDF2` with `pip install pypdf2`.
 
-Clone the repository and use the `first_pages.py` script as-is.
+Clone the repository and use the `collect_first_pages.py` script as-is.
 
 ## Usage
 
