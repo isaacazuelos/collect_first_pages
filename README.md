@@ -12,7 +12,8 @@ For a more general tool, see [`qpdf`][qpdf]
 ## Requirements and Installation
 
 You'll need [Python 3][python], with the [`PyPDF2`][py2pdf] module installed.
-You'll also need `pqdf` installed.
+
+You'll also need [`qpdf`][qpdf].
 
 [python]: https://python.org
 [py2pdf]: https://pythonhosted.org/PyPDF2/
